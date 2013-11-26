@@ -6,4 +6,5 @@
 #
 
 Chef::Config[:report_handlers] << Chef::Handler::SimpleLog.new
+Chef::Config[:exception_handlers] << Chef::Handler::SimpleLog.new
 

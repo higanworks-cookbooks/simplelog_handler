@@ -12,6 +12,7 @@ Attributes
 |Key|Type|Description|Default|
 |----|----|----|----|----|
 |[:simplelog_handler][:log_level]|symbol|change log level of this handler |:info|
+|[:simplelog_handler][:show_backtrace]|boolean |include backtrace to exeption handler |true|
 
 
 Usage
@@ -32,6 +33,8 @@ Example
 ----
 
 The handler outputs to log after Chef Run follwing.
+
+### Success
 
 ```
 [2013-11-26T02:39:44+00:00] INFO: Chef Run complete in 262.480158323 seconds       
@@ -58,6 +61,49 @@ The handler outputs to log after Chef Run follwing.
 [2013-11-26T02:39:44+00:00] INFO: 4:directory[/var/cache/local/preseeding]       
 ```
 
+### Exception
+
+```
+[2013-11-26T03:23:35+00:00] ERROR: ======= Chef Run failed. Exception is following...       
+[2013-11-26T03:23:35+00:00] ERROR: Exception: Chef::Exceptions::EnclosingDirectoryDoesNotExist: directory[/fail/path/due/to/no/parant] (dummy_cookbook::fail line 1) had an error: Chef::Exceptions::EnclosingDirectoryDoesNotExist: Parent directory /fail/path/due/to/no does not exist, cannot create /fail/path/due/to/no/parant       
+[2013-11-26T03:23:35+00:00] ERROR: ========== BackTrace
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/mixin/why_run.rb:241:in `run'       
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/mixin/why_run.rb:322:in `block in run'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/mixin/why_run.rb:321:in `each'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/mixin/why_run.rb:321:in `run'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/provider.rb:128:in `process_resource_requirements'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/provider.rb:104:in `run_action'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource.rb:625:in `run_action'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/runner.rb:49:in `run_action'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/runner.rb:81:in `block (2 levels) in converge'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/runner.rb:81:in `each'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/runner.rb:81:in `block in converge'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource_collection.rb:98:in `block in execute_each_resource'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource_collection/stepable_iterator.rb:116:in `call'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource_collection/stepable_iterator.rb:116:in `call_iterator_block'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource_collection/stepable_iterator.rb:85:in `step'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource_collection/stepable_iterator.rb:104:in `iterate'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource_collection/stepable_iterator.rb:55:in `each_with_index'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/resource_collection.rb:96:in `execute_each_resource'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/runner.rb:80:in `converge'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/client.rb:433:in `converge'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/client.rb:500:in `do_run'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/client.rb:199:in `block in run'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/client.rb:193:in `fork'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/client.rb:193:in `run'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/application.rb:208:in `run_chef_client'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/application/solo.rb:221:in `block in run_application'       
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/application/solo.rb:213:in `loop'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/application/solo.rb:213:in `run_application'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/lib/chef/application.rb:66:in `run'
+[2013-11-26T03:23:35+00:00] ERROR: = /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.8.0/bin/chef-solo:25:in `<top (required)>'
+[2013-11-26T03:23:35+00:00] ERROR: = /usr/bin/chef-solo:23:in `load'
+[2013-11-26T03:23:35+00:00] ERROR: = /usr/bin/chef-solo:23:in `<main>'
+[2013-11-26T03:23:35+00:00] ERROR: Exception handlers complete
+[2013-11-26T03:23:35+00:00] FATAL: Stacktrace dumped to /tmp/kitchen-chef-solo/cache/chef-stacktrace.out
+
+Chef Client failed. 0 resources updated    
+```
 
 Contributing
 ------------

@@ -16,8 +16,14 @@ class Chef::Handler::SimpleLog < ::Chef::Handler
     end
 
     if exception
-    Chef::Log.err '======= Chef Run failed. Exception is following...'
-      ## pending
+    Chef::Log.error '======= Chef Run failed. Exception is following...'
+    Chef::Log.error ["Exception: ", run_status.formatted_exception ].join
+    if node[:simplelog_handler][:show_backtrace]
+      Chef::Log.error '========== BackTrace'
+      run_status.backtrace.each do |line|
+        Chef::Log.error ["= ", line].join
+      end
+    end
     end
   end
 end
