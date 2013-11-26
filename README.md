@@ -1,9 +1,7 @@
 simplelog_handler Cookbook
 ==========================
-TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+This cookbook shows all_resources and update_resources at info og.
 
 Requirements
 ------------
