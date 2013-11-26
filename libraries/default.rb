@@ -14,5 +14,10 @@ class Chef::Handler::SimpleLog < ::Chef::Handler
     data[:updated_resources].each.with_index do |r,idx|
       Chef::Log.send(node[:simplelog_handler][:log_level].to_sym ,[idx, r.to_s].join(':'))
     end
+
+    if exception
+    Chef::Log.err '======= Chef Run failed. Exception is following...'
+      ## pending
+    end
   end
 end
