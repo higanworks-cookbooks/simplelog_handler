@@ -1,0 +1,14 @@
+PATH
+  remote: ./
+  specs:
+    simplelog_handler (0.1.0)
+
+PATH
+  remote: ./test/cookbooks/dummy_cookbook
+  specs:
+    dummy_cookbook (0.1.0)
+
+DEPENDENCIES
+  dummy_cookbook (>= 0)
+  simplelog_handler (>= 0)
+

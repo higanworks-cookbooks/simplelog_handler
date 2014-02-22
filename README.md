@@ -3,6 +3,8 @@ simplelog_handler Cookbook
 
 This cookbook shows all_resources and update_resources at log.
 
+It's useful for all environments such as debugging recipes or production environment.
+
 
 Attributes
 ----------
